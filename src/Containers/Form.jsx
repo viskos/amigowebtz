@@ -22,7 +22,7 @@ const Form = observer(() => {
         formData,
         changeInputValue,
         buttonDisabled,
-        checkErrors,
+        submitButton,
     } = formStore
 
     const { StyledForm, P, A } = Styled
@@ -35,7 +35,6 @@ const Form = observer(() => {
                     Уже есть аккаунт? <A href={'/'}>Войти?</A>
                 </P>
             </FormItem>
-
             <FormItem>
                 <Input
                     placeholder={'Введите Ваше имя'}
@@ -45,7 +44,6 @@ const Form = observer(() => {
                 />
                 <StyledError show={formData.name.hasError} />
             </FormItem>
-
             <FormItem>
                 <Input
                     placeholder={'Введите ваш email'}
@@ -56,7 +54,6 @@ const Form = observer(() => {
                 />
                 <StyledError show={formData.email.hasError} />
             </FormItem>
-
             <FormItem>
                 <Input
                     placeholder={'Введите номер телефона'}
@@ -67,7 +64,6 @@ const Form = observer(() => {
                 />
                 <StyledError show={formData.phone.hasError} />
             </FormItem>
-
             <FormItem>
                 <Select
                     show={dropdownShow}
@@ -84,7 +80,11 @@ const Form = observer(() => {
                 />
             </FormItem>
             <FormItem>
-                <Button disabled={buttonDisabled} text={'Зарегистрироваться'} />
+                <Button
+                    disabled={buttonDisabled}
+                    text={'Зарегистрироваться'}
+                    onClick={submitButton}
+                />
             </FormItem>
         </StyledForm>
     )

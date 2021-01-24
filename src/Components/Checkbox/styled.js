@@ -55,7 +55,6 @@ const StyledCheckbox = styled.div`
 
 const A = styled.a`
     color: #0880ae;
-    margin: 0 5px;
     text-decoration: none;
 `
 

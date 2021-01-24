@@ -10,7 +10,9 @@ const Checkbox = ({ checked, onChange }) => {
             <StyledCheckbox checked={checked}>
                 <Icon />
             </StyledCheckbox>
-            Принимаю <A href={'/'}>условия</A> использования
+            <p>
+                Принимаю <A href={'/'}>условия</A> использования
+            </p>
         </CheckboxContainer>
     )
 }

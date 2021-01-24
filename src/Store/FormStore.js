@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, autorun } from 'mobx'
 
 class FormStore {
     //dropdown state
@@ -13,23 +13,25 @@ class FormStore {
     formData = {
         name: {
             value: '',
-            hasError: false,
+            hasError: true,
         },
         phone: {
             value: '',
-            hasError: false,
+            hasError: true,
         },
         email: {
             value: '',
-            hasError: false,
+            hasError: true,
         },
     }
 
     //submit button state
-    buttonDisabled = false
+    buttonDisabled = true
 
     constructor() {
         makeAutoObservable(this)
+
+        autorun(() => this.checkErrors())
     }
 
     //dropdown open/close
@@ -60,14 +62,14 @@ class FormStore {
     validateInput = (name, value) => {
         switch (name) {
             case 'name':
-                if (/\d|[^\w-\s]/gm.test(value)) {
+                if (/\d|[^\w-\s]/gm.test(value) || value.length === 0) {
                     this.formData[name].hasError = true
                 } else {
                     this.formData[name].hasError = false
                 }
                 break
             case 'email':
-                if (!/\w+@\w+\.\w+/gm.test(value)) {
+                if (!/\w+@\w+\.\w+/gm.test(value) || value.length === 0) {
                     this.formData[name].hasError = true
                 } else {
                     this.formData[name].hasError = false
@@ -90,13 +92,19 @@ class FormStore {
     }
 
     //disabled button if formData has errors
-    get checkErrors() {
+    checkErrors() {
         const check = Object.values(this.formData).filter(
             (e) => e.hasError === true
         )
-        return check.length
+        check.length
             ? (this.buttonDisabled = true)
             : (this.buttonDisabled = false)
+    }
+
+    submitButton = (e) => {
+        e.preventDefault()
+        console.log('Form Data', this.formData)
+        console.log('Rules', this.checkboxChecked)
     }
 }
 
